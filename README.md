@@ -1,6 +1,6 @@
 # Yolo-v5-Driver-License
 
-Driver License OCR using YOLOv8 and TrOCR
+Driver License OCR using YOLOv5 and TrOCR
 This project aims to automate the extraction of key information from US driver licenses using a combination of computer vision models, significantly reducing manual data entry and potential errors.
 
 ## Table of Contents
@@ -21,7 +21,7 @@ Manually transcribing information from driver licenses is a time-consuming and e
 
 ## Features
 - Automated Data Extraction: Automatically extracts key information from US driver licenses.
-- YOLOv8 for Object Detection: Utilizes YOLOv8 for precise localization of information fields on the driver's license.
+- YOLOv5 for Object Detection: Utilizes YOLOv5 for precise localization of information fields on the driver's license.
 - TrOCR for Optical Character Recognition: Employs TrOCR for robust character recognition within the identified fields.
 - End-to-End Solution: From image input to structured DataFrame output.
 - Error Reduction: Minimizes human errors associated with manual data entry.
@@ -29,13 +29,13 @@ Manually transcribing information from driver licenses is a time-consuming and e
 ## How It Works
 The project follows a multi-stage approach to extract information:
 
-1. Object Detection (YOLOv8): A YOLOv8 model, trained on a custom dataset of demo US driver licenses, identifies and localizes key information fields (e.g., "Address", "DOB", "License Number") on an input driver's license image.
+1. Object Detection (YOLOv5): A YOLOv5 model, trained on a custom dataset of demo US driver licenses, identifies and localizes key information fields (e.g., "Address", "DOB", "License Number") on an input driver's license image.
 2. Image Preprocessing (Rotation & Classification): Auxiliary models are used to ensure the image is correctly oriented and potentially classified for optimal OCR performance.
 3. Optical Character Recognition (TrOCR): For each identified field, the TrOCR model transcribes the text, converting the image region into readable characters.
 4. Data Structuring: The extracted text information is then compiled into a structured Pandas DataFrame for easy access and further processing.
 
-## Training the YOLOv8 Model
-The YOLOv8 model is trained on a custom dataset of demo US driver licenses. This dataset includes bounding box annotations for the following key information fields:
+## Training the YOLOv5 Model
+The YOLOv5 model is trained on a custom dataset of demo US driver licenses. This dataset includes bounding box annotations for the following key information fields:
 
 - Address
 - Class
@@ -47,16 +47,16 @@ The YOLOv8 model is trained on a custom dataset of demo US driver licenses. This
 - License number
 - Sex
 - State
-You can train your own YOLOv8 model using the following command:
+You can train your own YOLOv5 model using the following command:
 ```
-python train.py --img 640 --batch 16 --epochs 50 --data /content/drive/MyDrive/driver_license_extraction/dataset.yaml --weights yolov8s.pt
+python train.py --img 640 --batch 16 --epochs 50 --data /content/drive/MyDrive/driver_license_extraction/dataset.yaml --weights YOLOv5s.pt
 ```
 
-This training process will generate a .pt model file (e.g., best.pt) containing the trained YOLOv8 weights.
+This training process will generate a .pt model file (e.g., best.pt) containing the trained YOLOv5 weights.
 
 
 ## Model Application
-Once the YOLOv8 model is trained, and other necessary models are available, the system can be used to extract information from real driver's license images. The core logic for loading and applying the models looks like this:
+Once the YOLOv5 model is trained, and other necessary models are available, the system can be used to extract information from real driver's license images. The core logic for loading and applying the models looks like this:
 
 ```
 import torch
@@ -74,7 +74,7 @@ trocr_model.to(device)
 # Load other pre-trained models (assuming they are in .pt format)
 rotate_model = torch.load(r'/content/drive/MyDrive/Driving_License_OCR-main-v2/resnet/rotate_entire_2.pt', map_location=device)
 class_model = torch.load(r'/content/drive/MyDrive/Driving_License_OCR-main-v2/resnet/class_entire_2.pt', map_location=device)
-model = YOLO(r'/content/drive/MyDrive/Driving_License_OCR-main-v2/weights/best.pt') # Your trained YOLOv8 model
+model = YOLO(r'/content/drive/MyDrive/Driving_License_OCR-main-v2/weights/best.pt') # Your trained YOLOv5 model
 state_model = torch.load(r'/content/drive/MyDrive/Driving_License_OCR-main-v2/resnet/state_class_2.pt', map_location=device)
 
 # ... (further code to apply models to input images and extract data)
