@@ -7,7 +7,7 @@ This project aims to automate the extraction of key information from US driver l
 - Introduction
 - Features
 - How It Works
-- Training the YOLOv8 Model
+- Training the YOLOv5 Model
 - Model Application
 - Results
 - Limitations
