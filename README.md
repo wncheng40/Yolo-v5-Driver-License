@@ -1,4 +1,4 @@
-# Yolo-v8-Driver-License
+# Yolo-v5-Driver-License
 
 Driver License OCR using YOLOv8 and TrOCR
 This project aims to automate the extraction of key information from US driver licenses using a combination of computer vision models, significantly reducing manual data entry and potential errors.
